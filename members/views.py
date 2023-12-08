@@ -45,28 +45,80 @@ def UserLogout(request):
         return redirect('members')
     return redirect('UserLogin')
 
-@csrf_exempt
-def POSTDataUpdate(request):
-    if request.method == 'POST':
-        fillLevel = request.POST['fillLevel']
-        BinID = request.POST['BinID']
-        print(fillLevel,"    :FillLevel")
-        print(BinID,":BinID")
-        return HttpResponse(True)
-    return HttpResponse(False)
-        
+# @csrf_exempt
+# def POSTDataUpdate(request):
+#     if request.method == 'POST':
+#         fillLevel = request.POST['fillLevel']
+#         BinID = request.POST['BinID']
+#         print(fillLevel,"    :FillLevel")
+#         print(BinID,":BinID")
+#         return HttpResponse(True)
+#     return HttpResponse(False)
 def addBin(request):
     if request.user.is_authenticated:    
         if request.method == 'POST':
             form = Bins(request.POST)
             if form.is_valid():
-                bin_instance = form.save(commit=False)
-                bin_instance.lastRefresh = form.cleaned_data['lastRefresh']
-                bin_instance.save() 
+                bin_id = form.cleaned_data['BinID']
+                refresh_stats = form.cleaned_data['refreshStats']
+                last_refresh = form.cleaned_data['lastRefresh']
+                fill_up = form.cleaned_data['fillUp']
+                lat = form.cleaned_data['Lat']
+                lon = form.cleaned_data['Lon']
+                area = form.cleaned_data['Area']
+                city = form.cleaned_data['City']
+                if fill_up >= 70:
+                    status = 'HIGH'
+                elif fill_up >= 40:
+                    status = 'MID'
+                else:
+                    status = 'LOW'
+
+                # Now you have individual variables for each form field
+                # You can use these variables as needed, for example, save them to the database
+
+                bin_instance = BinsStats(
+                    BinID=bin_id,
+                    status=status,
+                    refreshStats=refresh_stats,
+                    lastRefresh=last_refresh,
+                    fillUp=fill_up,
+                    Lat=lat,
+                    Lon=lon,
+                    Area=area,
+                    City=city,
+                )
+
+                bin_instance.save()
+
+                messages.success(request, 'Bin added successfully!')
                 form = Bins()
             else:
+                messages.error(request, 'Form submission error. Please check the form.')
                 print(form.errors)
-            return render(request,"addBins.html",{'form':form})
-        return render(request,"addBins.html",{'form':Bins(),'user':request.user.username})
-    messages.error(request,'You need to login first to acces this page')
+                
+            return render(request, "addBins.html", {'form': form})
+        
+        return render(request, "addBins.html", {'form': Bins(), 'user': request.user.username})
+    
+    messages.error(request, 'You need to log in first to access this page')
     return redirect(UserLogin)
+
+@csrf_exempt
+def update(request):
+    if request.method == 'POST':
+        BinID = request.POST['BinID']
+        fillUp = int(request.POST['fillUp'])
+        bin_instance = BinsStats.objects.get(BinID=BinID)
+        if fillUp >= 70:
+            bin_instance.status = 'HIGH'
+        elif fillUp >= 40:
+            bin_instance.status = 'MID'
+        else:
+            bin_instance.status = 'LOW'
+
+        bin_instance.fillUp = fillUp
+        bin_instance.save()
+        return HttpResponse('Succes')   
+
+    return redirect('members')

@@ -2,7 +2,7 @@ from django.db import models
 
 class BinsStats(models.Model):
     BinID = models.CharField(max_length=6, unique=True)
-    status = models.CharField(max_length=4, blank=True)
+    status = models.CharField(max_length=4, blank=True,null=True)
     refreshStats = models.CharField(max_length=4, blank=True)
     lastRefresh = models.DateField(blank=True)
     fillUp = models.IntegerField(blank=True)

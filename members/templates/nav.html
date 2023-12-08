@@ -1,10 +1,22 @@
 <style>
+    *
+    {
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    }
+
+    .content
+    {
+        margin: 10px;
+    }
+
     body
     {
         margin: 0;
     }
     .nav
     {
+        display: flex;
+        justify-content: right;
         background-color: #5EBBEF;
         height: 100px;
         width: 100dvw;
@@ -30,15 +42,28 @@
         padding:10px;
         display: flex;
         justify-content: center;
-        background-color:#BB3535;
+        background-color:#5EBBEF;
         color:#FFF;
+    }
+    @media screen and (max-width: 700px) {
+        
+        #user
+        {
+        display: none;       
+        }
+        .nav
+        {
+            justify-content: center;
+        }
     }
 </style>
 
 <nav class="nav">
-    <a class="name" href="/">Tidier</a>
-    <a href="/loginUser">Login</a>
-    <a href="/logoutUser">Logout</a>
-    <a href="/addBin">Add Bin</a>
-    {{user}}
+    <div class="content">
+        <a class="name" href="/">Tidier</a>
+        <a href="/loginUser">Login</a>
+        <a href="/logoutUser">Logout</a>
+        <a href="/addBin">Add Bin</a>
+        <span id='user'>{{user}}</span>
+    </div>
 </nav>
