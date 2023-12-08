@@ -14,10 +14,35 @@
   </ul>
     {% endif %}
     {% include "nav.html" %}
-    <form method="post"">
+    <form method="post">
         {% csrf_token %}
         {{form.as_p}}
         <input type="submit" value="Add">
     </form>
+    <script>
+      fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+              fetch(`https://ipapi.co/${data.ip}/json`).then(response => response.json()).then(
+                  data =>{
+                      console.log(data.latitude);
+                      console.log(data.longitude);
+                      console.log(data.city);
+                      let lon = document.getElementById("id_Lon")
+                      let lat = document.getElementById("id_Lat")
+                      let city = document.getElementById("id_City")
+                      lon.value = parseInt(data.longitude)
+                      city.value = (data.city)
+                      // lon.disabled = true
+                      // lat.disabled = true
+                      lat.value = parseInt(data.latitude)
+                  }
+              )
+              // console.log(data.ip);
+          })
+          .catch(error => console.error('Error fetching IP address:', error));
+          
+      // Move the script to the end of the body or use the defer attribute
+  </script>
 </body>
 </html>

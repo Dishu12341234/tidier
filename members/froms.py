@@ -13,7 +13,7 @@ class LoginForm(forms.ModelForm):
 class Bins(forms.ModelForm):
     class Meta:
         model = BinsStats
-        fields = ['BinID', 'status', 'refreshStats', 'lastRefresh', 'fillUp', 'Lat', 'Lon', 'Area']
+        fields = ['BinID', 'status', 'refreshStats', 'lastRefresh', 'fillUp', 'Lat', 'Lon', 'Area','City']
         widgets = {
             # Specify any custom widgets for fields if needed   
         }

@@ -54,7 +54,7 @@ def POSTDataUpdate(request):
         print(BinID,":BinID")
         return HttpResponse(True)
     return HttpResponse(False)
-    
+        
 def addBin(request):
     if request.user.is_authenticated:    
         if request.method == 'POST':

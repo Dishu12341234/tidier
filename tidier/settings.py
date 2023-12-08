@@ -25,6 +25,9 @@ SECRET_KEY = "django-insecure-mix)=0a4k-q50p&yvahidn93n75gj#tl6y+%1v9e(u_foz2fuf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+GEOIP_PATH = '/path/to/your/GeoLite2-Country.mmdb'  # Update this with the actual path
+
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'members',
+    'geoip2',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
+
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
