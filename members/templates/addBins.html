@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tidier | Add Bins</title>
+</head>
+<body>
+    {% if form.errors %}
+  <ul class="errorlist">
+    {% for field, errors in form.errors.items %}
+      <li>{{ field }}: {{ errors.0 }}</li>
+    {% endfor %}
+  </ul>
+    {% endif %}
+    {% include "nav.html" %}
+    <form method="post"">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Add">
+    </form>
+</body>
+</html>

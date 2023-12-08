@@ -1,0 +1,44 @@
+<style>
+    body
+    {
+        margin: 0;
+    }
+    .nav
+    {
+        background-color: #5EBBEF;
+        height: 100px;
+        width: 100dvw;
+        display: flex;
+        align-items: center;
+    }
+    .name
+    {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin-left: 15px;
+        
+    }
+    a
+    {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin: 10px;
+        text-decoration: none;
+        color: black;
+    }
+    .messages
+    {
+        margin:0px;
+        padding:10px;
+        display: flex;
+        justify-content: center;
+        background-color:#BB3535;
+        color:#FFF;
+    }
+</style>
+
+<nav class="nav">
+    <a class="name" href="/">Tidier</a>
+    <a href="/loginUser">Login</a>
+    <a href="/logoutUser">Logout</a>
+    <a href="/addBin">Add Bin</a>
+    {{user}}
+</nav>

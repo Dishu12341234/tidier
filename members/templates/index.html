@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tidier</title>
+
+    <style>
+        .workTab {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #0094E7;
+            overflow-x: auto;
+            /* Add horizontal scroll on small screens if needed */
+        }
+
+        th,
+        td {
+            border-radius: 10px;
+            background-color: #5EBBEF;
+            padding: 10px;
+            transition: all .6s;
+        }
+
+        @media screen and (max-width: 600px) {
+
+            /* Adjust styles for small screens */
+            td {
+                display: block;
+                width: 120%;
+                box-shadow: 6px 15px 20px #0094E7;
+                margin: 3px;
+            }
+
+            th {
+                display: none;
+            }
+
+            td:hover {
+                box-shadow: 6px 15px 20px #5EBBEF;
+                padding: 15px;  
+                margin-left:15px ;
+            }
+
+        }
+        .Area:hover
+        {
+            background-color: white;
+            border-radius: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    {% include "nav.html" %}
+
+    <table class="workTab">
+        <tr>
+            <th>Bin ID</th>
+            <th>Refresh Status</th>
+            <th>Last Refresh</th>
+            <th>Status</th>
+            <th>Fill up</th>
+            <th>Area</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+        </tr>
+        {% for bin in bins %}
+        <tr>
+            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.BinID }}</td>
+                <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.refreshStats }}</td>
+                    <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.lastRefresh }}</td>
+                        <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.status }}</td>
+                            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.fillUp }}</td>
+                                <td class="Area"><a target="_blank" href="https://www.google.com/search?q={{ bin.Area }}">
+                                    {{ bin.Area }}</a></td>
+                                <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.Lon }}</td>
+                                    <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.Lat }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    <script>
+        // Move the script to the end of the body or use the defer attribute
+        let messages = document.querySelector(".messages");
+        setTimeout(() => {
+            messages.style.display = "none";
+        }, 2000);
+    </script>
+    {% endif %}
+</body>
+
+</html>
