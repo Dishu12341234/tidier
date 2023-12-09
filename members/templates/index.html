@@ -142,10 +142,10 @@
     <table class="workTab">
         <tr id="ths">
             <th>Bin ID</th>
-            <th>Refresh Status</th>
             <th>Last Refresh</th>
-            <th>Status</th>
             <th>Fill up</th>
+            <th>Status</th>
+            <th>Refresh Status</th>
             <th>Area</th>
             <th>City</th>
             <th>Longitude</th>
@@ -154,10 +154,10 @@
         {% for bin in bins %}
         <tr>
             <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.BinID }}</td>
-                <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.refreshStats }}</td>
-                    <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.lastRefresh }}</td>
-                        <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.status }}</td>
-                            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.fillUp }}</td>
+            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.lastRefresh }}</td>
+            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.fillUp }}</td>
+            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.status }}</td>
+            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.refreshStats }}</td>
                                 <td class="Area"><a target="_blank" id="query"
                                         href="https://www.google.com/search?q={{bin.Area}},+{{bin.City}}">{{bin.Area}}</a>
                                 </td>

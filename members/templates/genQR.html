@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate QRCode</title>
+    <style>
+        #a
+        {
+            margin-left: 0px;
+        }
+        img
+        {
+            margin: 0px;
+            border: 2px #333 solid;
+        }
+    </style>
+</head>
+<body>
+    {%include "nav.html"%}
+    {%for qr in QR%}
+       <a  id="a" href="{{qr.image.url}}" download><img src="{{qr.image.url}}"></a>
+        <p>{{qr.image.data}}</p>
+    {%endfor%}
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="GENERATE">
+    </form>
+</body>
+</html>

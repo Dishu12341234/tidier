@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -131,3 +132,14 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+ALLOWED_HOSTS = ['eed4-2401-4900-1c19-ebb6-7d38-f35c-cfec-9a47.ngrok-free.app','localhost']
+
+CSRF_TRUSTED_ORIGINS = ['https://eed4-2401-4900-1c19-ebb6-7d38-f35c-cfec-9a47.ngrok-free.app']
+
+SECURE_REFERRER_POLICY = 'same-origin'
+
+# CSRF_COOKIE_SECURE = False
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'

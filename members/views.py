@@ -3,20 +3,20 @@ from django.contrib.auth.models import User as AppUser
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login, logout
 from django.shortcuts import render,redirect
+from .froms import LoginForm,Bins,QR
 from django.http import HttpResponse
+from .models import BinsStats,BINQRs
 from django.contrib import messages
-from .froms import LoginForm,Bins
 from django.urls import reverse
-from .models import BinsStats
 import json
 
 def members(request):
     if request.user.is_authenticated:
         bins = BinsStats.objects.all()  
-        return render(request,"index.html",{'user':request.user.username,'bins':bins})
+        qr_code = BINQRs.objects.all()
+        return render(request,"index.html",{'user':request.user.username,'bins':bins,'QR':qr_code})
     else:
         return redirect('UserLogin')
-
 
 def UserLogin(request):
     if request.method == 'POST':
@@ -115,14 +115,32 @@ def update(request):
         bin_instance = BinsStats.objects.get(BinID=BinID)
         if fillUp >= 70:
             bin_instance.status = 'HIGH'
+            bin_instance.refreshStats = 'Due'
         elif fillUp >= 40:
             bin_instance.status = 'MID'
+            bin_instance.refreshStats = 'Due'
         else:
             bin_instance.status = 'LOW'
+            bin_instance.refreshStats = 'Done'
 
         bin_instance.fillUp = fillUp
         bin_instance.save()
         return HttpResponse('Succes')   
 
     return redirect('members')
+def genQRCODE(request):
+    if request.method == 'POST':
+        form = QR(request.POST)
+        if form.is_valid():
+            Lat = form.cleaned_data['Lat']
+            Lon = form.cleaned_data['Lon']
+            BinID = form.cleaned_data['BinID']
+            data = "{"+f'"Lat":{Lat},"Lon":{Lon},"BinID":{BinID}'+"}"
+            qr_code = BINQRs(data=data)
+            qr_code.save()
+            qr_code.generate_qr_code()
+            return render(request, 'genQR.html', {'form': '', 'QR': qrs})
 
+    form = QR()
+    qrs = BINQRs.objects.all()
+    return render(request, 'genQR.html', {'form': form, 'QR': qrs})
