@@ -8,6 +8,7 @@ from django.contrib import messages
 from .froms import LoginForm,Bins
 from django.urls import reverse
 from .models import BinsStats
+import json
 
 def members(request):
     if request.user.is_authenticated:
@@ -59,14 +60,17 @@ def addBin(request):
         if request.method == 'POST':
             form = Bins(request.POST)
             if form.is_valid():
-                bin_id = form.cleaned_data['BinID']
                 refresh_stats = form.cleaned_data['refreshStats']
                 last_refresh = form.cleaned_data['lastRefresh']
                 fill_up = form.cleaned_data['fillUp']
-                lat = form.cleaned_data['Lat']
-                lon = form.cleaned_data['Lon']
                 area = form.cleaned_data['Area']
                 city = form.cleaned_data['City']
+                qr_data = form.cleaned_data['qr_data']
+                qr_data_json = json.loads(qr_data)
+                lat = qr_data_json['Lat']
+                lon = qr_data_json['Lon']
+                bin_id = qr_data_json['BinID']
+                    
                 if fill_up >= 70:
                     status = 'HIGH'
                 elif fill_up >= 40:
@@ -92,12 +96,11 @@ def addBin(request):
                 bin_instance.save()
 
                 messages.success(request, 'Bin added successfully!')
-                form = Bins()
             else:
                 messages.error(request, 'Form submission error. Please check the form.')
                 print(form.errors)
                 
-            return render(request, "addBins.html", {'form': form})
+            return redirect('members')
         
         return render(request, "addBins.html", {'form': Bins(), 'user': request.user.username})
     
@@ -122,3 +125,4 @@ def update(request):
         return HttpResponse('Succes')   
 
     return redirect('members')
+

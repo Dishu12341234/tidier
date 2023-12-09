@@ -11,9 +11,10 @@ class LoginForm(forms.ModelForm):
         fields = ['username','password']
 
 class Bins(forms.ModelForm):
+    qr_data = forms.CharField()
     class Meta:
         model = BinsStats
-        fields = ['BinID', 'refreshStats', 'lastRefresh', 'fillUp', 'Lat', 'Lon', 'Area','City']
+        fields = ['refreshStats', 'lastRefresh', 'fillUp', 'Area','City']
         widgets = {
             # Specify any custom widgets for fields if needed   
         }
