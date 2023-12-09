@@ -23,6 +23,7 @@
   <div id="result"></div>
   <script defer>
     fetch('https://api.ipify.org?format=json')
+      //jsonip.com
       .then(response => response.json())
       .then(data => {
         fetch(`https://ipapi.co/${data.ip}/json`).then(response => response.json()).then(
