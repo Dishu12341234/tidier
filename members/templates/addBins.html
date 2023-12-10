@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tidier | Add Bins</title>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js"
     integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -22,11 +23,11 @@
   <div id="reader"></div>
   <div id="result"></div>
   <script defer>
-    fetch('https://api.ipify.org?format=json')
-      //jsonip.com
+    fetch('https://httpbin.org/ip')
+    //jsonip.com
       .then(response => response.json())
       .then(data => {
-        fetch(`https://ipapi.co/${data.ip}/json`).then(response => response.json()).then(
+        fetch(`https://ipapi.co/${data.origin}/json`).then(response => response.json()).then(
           data => {
             console.log(data.latitude);
             console.log(data.longitude);

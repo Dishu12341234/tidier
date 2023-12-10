@@ -66,6 +66,7 @@ def addBin(request):
                 area = form.cleaned_data['Area']
                 city = form.cleaned_data['City']
                 qr_data = form.cleaned_data['qr_data']
+                print(qr_data)
                 qr_data_json = json.loads(qr_data)
                 lat = qr_data_json['Lat']
                 lon = qr_data_json['Lon']
@@ -73,10 +74,13 @@ def addBin(request):
                     
                 if fill_up >= 70:
                     status = 'HIGH'
+                    bin_instance.refreshStats = 'Due'
                 elif fill_up >= 40:
                     status = 'MID'
+                    bin_instance.refreshStats = 'Due'
                 else:
                     status = 'LOW'
+                    bin_instance.refreshStats = 'Done'
 
                 # Now you have individual variables for each form field
                 # You can use these variables as needed, for example, save them to the database
@@ -135,11 +139,10 @@ def genQRCODE(request):
             Lat = form.cleaned_data['Lat']
             Lon = form.cleaned_data['Lon']
             BinID = form.cleaned_data['BinID']
-            data = "{"+f'"Lat":{Lat},"Lon":{Lon},"BinID":{BinID}'+"}"
+            data = "{"+f'"Lat":"{Lat}","Lon":"{Lon}","BinID":"{BinID}"'+"}"
             qr_code = BINQRs(data=data)
             qr_code.save()
             qr_code.generate_qr_code()
-            return render(request, 'genQR.html', {'form': '', 'QR': qrs})
 
     form = QR()
     qrs = BINQRs.objects.all()

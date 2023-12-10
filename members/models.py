@@ -12,8 +12,8 @@ class BinsStats(models.Model):
     refreshStats = models.CharField(max_length=4, blank=True)
     lastRefresh = models.DateField(blank=True)
     fillUp = models.IntegerField(blank=True)
-    Lat = models.FloatField(blank=True, null=True)
-    Lon = models.FloatField(blank=True, null=True)
+    Lat = models.CharField(blank=True, null=True,max_length=100)
+    Lon = models.CharField(blank=True, null=True,max_length=100)
     Area = models.CharField(max_length=200, blank=True)
     City = models.CharField(max_length=200,blank=True)
 
