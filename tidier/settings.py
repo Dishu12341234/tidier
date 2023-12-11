@@ -25,10 +25,6 @@ SECRET_KEY = "django-insecure-mix)=0a4k-q50p&yvahidn93n75gj#tl6y+%1v9e(u_foz2fuf
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-GEOIP_PATH = '/path/to/your/GeoLite2-Country.mmdb'  # Update this with the actual path
-
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -133,13 +129,24 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-ALLOWED_HOSTS = ['eed4-2401-4900-1c19-ebb6-7d38-f35c-cfec-9a47.ngrok-free.app','localhost']
-
-CSRF_TRUSTED_ORIGINS = ['https://eed4-2401-4900-1c19-ebb6-7d38-f35c-cfec-9a47.ngrok-free.app']
-
 SECURE_REFERRER_POLICY = 'same-origin'
 
-# CSRF_COOKIE_SECURE = False
+CSRF_TRUSTED_ORIGINS = ['https://9384-2401-4900-1c19-2783-e48f-41f6-b180-bd93.ngrok-free.app']
+
+
+CSRF_COOKIE_SECURE = False
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+DEBUG = True
+SECURE_SSL_REDIRECT = False
+
+CORS_REPLACE_HTTPS_REFERER      = False
+HOST_SCHEME                     = "http://"
+SECURE_PROXY_SSL_HEADER         = None
+SECURE_SSL_REDIRECT             = False
+SESSION_COOKIE_SECURE           = False
+CSRF_COOKIE_SECURE              = False
+SECURE_HSTS_SECONDS             = None
+SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
+SECURE_FRAME_DENY               = False

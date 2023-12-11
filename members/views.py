@@ -23,18 +23,18 @@ def UserLogin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = AppUser.objects.filter(username=username).first()
-        print(user.password)
-        
-        if user and check_password(password,user.password):
-            login(request, user)
-            messages.add_message(request,1,'Logged ')
-            print (request.user)
-            print (request.user.is_authenticated)
-            messages.success(request,f"Succesfuly logged in  as {user.username}")
-            return redirect(reverse('members'))
-
-        else:
-            messages.error(request, 'Invalid username or password.')
+        if user is not None:
+                
+            print(user.password)
+            
+            if user and check_password(password,user.password):
+                login(request, user)
+                messages.add_message(request,1,'Logged ')
+                print (request.user)
+                print (request.user.is_authenticated)
+                messages.success(request,f"Succesfuly logged in  as {user.username}")
+                return redirect(reverse('members'))
+        messages.error(request, 'Invalid username or password.')
 
     form = LoginForm()
     return render(request, 'login.html', {'form': form,'user':request.user.username})
@@ -55,7 +55,7 @@ def UserLogout(request):
 #         print(BinID,":BinID")
 #         return HttpResponse(True)
 #     return HttpResponse(False)
-def addBin(request):
+def creatBin(request):
     if request.user.is_authenticated:    
         if request.method == 'POST':
             form = Bins(request.POST)
@@ -74,13 +74,13 @@ def addBin(request):
                     
                 if fill_up >= 70:
                     status = 'HIGH'
-                    bin_instance.refreshStats = 'Due'
+                    form.refreshStats = 'Due'
                 elif fill_up >= 40:
                     status = 'MID'
-                    bin_instance.refreshStats = 'Due'
+                    form.refreshStats = 'Due'
                 else:
                     status = 'LOW'
-                    bin_instance.refreshStats = 'Done'
+                    form.refreshStats = 'Done'
 
                 # Now you have individual variables for each form field
                 # You can use these variables as needed, for example, save them to the database
@@ -133,17 +133,19 @@ def update(request):
 
     return redirect('members')
 def genQRCODE(request):
-    if request.method == 'POST':
-        form = QR(request.POST)
-        if form.is_valid():
-            Lat = form.cleaned_data['Lat']
-            Lon = form.cleaned_data['Lon']
-            BinID = form.cleaned_data['BinID']
-            data = "{"+f'"Lat":"{Lat}","Lon":"{Lon}","BinID":"{BinID}"'+"}"
-            qr_code = BINQRs(data=data)
-            qr_code.save()
-            qr_code.generate_qr_code()
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = QR(request.POST)
+            if form.is_valid():
+                Lat = form.cleaned_data['Lat']
+                Lon = form.cleaned_data['Lon']
+                BinID = form.cleaned_data['BinID']
+                data = "{"+f'"Lat":"{Lat}","Lon":"{Lon}","BinID":"{BinID}"'+"}"
+                qr_code = BINQRs(data=data)
+                qr_code.save()
+                qr_code.generate_qr_code()
 
-    form = QR()
-    qrs = BINQRs.objects.all()
-    return render(request, 'genQR.html', {'form': form, 'QR': qrs})
+        form = QR()
+        qrs = BINQRs.objects.all()
+        return render(request, 'genQR.html', {'form': form, 'QR': qrs})
+    return redirect('UserLogin')

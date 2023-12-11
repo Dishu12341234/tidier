@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.members, name='members'),
     path('loginUser', views.UserLogin, name='UserLogin'),
     path('logoutUser', views.UserLogout, name='UserLogout'),
-    path('addBin', views.addBin, name='addBin'),
+    path('creatBin', views.creatBin, name='creatBin'),
     path('update', views.update, name='update'),
     path('QR', views.genQRCODE, name='update'),
 ]

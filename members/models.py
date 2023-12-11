@@ -1,7 +1,7 @@
 import random
 from django.db import models
 import qrcode
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw,ImageFont
 from io import BytesIO
 from django.core.files import File
 
@@ -32,6 +32,11 @@ class BINQRs(models.Model):
         qr_code = qrcode.make(self.data)
         canvas = Image.new("RGB", (400, 400), "white")
         canvas.paste(qr_code)
+        draw = ImageDraw.Draw(canvas)
+        font = ImageFont.load_default()  # You can load a specific font if needed
+        text = f'{self.data}'
+        text_color = "black"
+        draw.text((50, 350), text, font=font, fill=text_color)
         buffer = BytesIO()
         canvas.save(buffer, "PNG")
         self.image.save(f'image{random.randint(0, 99999)}.png', File(buffer), save=False)
