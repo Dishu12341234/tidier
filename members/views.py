@@ -1,6 +1,6 @@
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User as AppUser
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login, logout
 from django.shortcuts import render,redirect
 from .froms import LoginForm,Bins,QR
@@ -17,9 +17,10 @@ def members(request):
         return render(request,"index.html",{'user':request.user.username,'bins':bins,'QR':qr_code})
     else:
         return redirect('UserLogin')
-
+@csrf_exempt
 def UserLogin(request):
     if request.method == 'POST':
+        print(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = AppUser.objects.filter(username=username).first()
@@ -30,9 +31,11 @@ def UserLogin(request):
             if user and check_password(password,user.password):
                 login(request, user)
                 messages.add_message(request,1,'Logged ')
-                print (request.user)
+                print (request.user,end="")
                 print (request.user.is_authenticated)
                 messages.success(request,f"Succesfuly logged in  as {user.username}")
+                if request.POST.get('device') is not None:
+                    return HttpResponse('SCCS')
                 return redirect(reverse('members'))
         messages.error(request, 'Invalid username or password.')
 
@@ -55,6 +58,8 @@ def UserLogout(request):
 #         print(BinID,":BinID")
 #         return HttpResponse(True)
 #     return HttpResponse(False)
+
+@csrf_exempt
 def creatBin(request):
     if request.user.is_authenticated:    
         if request.method == 'POST':
@@ -116,7 +121,7 @@ def update(request):
     if request.method == 'POST':
         BinID = request.POST['BinID']
         fillUp = int(request.POST['fillUp'])
-        bin_instance = BinsStats.objects.get(BinID=BinID)
+        bin_instance = BinsStats()
         if fillUp >= 70:
             bin_instance.status = 'HIGH'
             bin_instance.refreshStats = 'Due'

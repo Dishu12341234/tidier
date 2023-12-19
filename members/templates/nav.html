@@ -62,7 +62,7 @@
     <div class="content">
         <a class="name" href="/">Tidier</a>
         <a href="/logoutUser">Logout</a>
-        <a href="/creatBin">create Bin</a>
+        <a href="{% url 'creatBin' %}">{% url 'creatBin' %}</a>
         <a href="/QR">Generate QR</a>
         <span id='user'>{{user}}</span>
     </div>

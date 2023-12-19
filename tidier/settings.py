@@ -48,6 +48,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.security.SecurityMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -130,13 +131,16 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SECURE_REFERRER_POLICY = 'same-origin'
-
-CSRF_TRUSTED_ORIGINS = ['https://9384-2401-4900-1c19-2783-e48f-41f6-b180-bd93.ngrok-free.app']
+# settings.py
+CSRF_TRUSTED_ORIGINS = [
+    'https://b388-2401-4900-1c19-2783-29f6-9ade-c715-1eb2.ngrok-free.app',
+    'http://b388-2401-4900-1c19-2783-29f6-9ade-c715-1eb2.ngrok-free.app'
+]
 
 
 CSRF_COOKIE_SECURE = False
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')  
 MEDIA_URL = '/media/'
 DEBUG = True
 SECURE_SSL_REDIRECT = False
@@ -150,3 +154,24 @@ CSRF_COOKIE_SECURE              = False
 SECURE_HSTS_SECONDS             = None
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
 SECURE_FRAME_DENY               = False
+
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SECURE_SSL_REDIRECT = False
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
