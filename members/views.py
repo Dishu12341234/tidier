@@ -33,7 +33,8 @@ def UserLogin(request):
                 messages.add_message(request,1,'Logged ')
                 messages.success(request,f"Succesfuly logged in  as {user.username}")
                 if device == "NODE":
-                    return HttpResponse('^\r\n')
+                    print("BIN LOGIN DETCETED")
+                    return HttpResponse('SCCS\r\n')
                 return redirect(reverse('members'))
         messages.error(request, 'Invalid username or password.')
 
@@ -117,7 +118,7 @@ def update(request):
     if request.method == 'POST':
         BinID = request.POST['BinID']
         fillUp = int(request.POST['fillUp'])
-        bin_instance = BinsStats()
+        bin_instance = BinsStats.objects.get(BinID=BinID)
         if fillUp >= 70:
             bin_instance.status = 'HIGH'
             bin_instance.refreshStats = 'Due'
