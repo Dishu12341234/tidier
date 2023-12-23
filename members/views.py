@@ -9,13 +9,15 @@ from .models import BinsStats,BINQRs
 from django.contrib import messages
 from django.urls import reverse
 import json
-
 def members(request):
     if request.user.is_authenticated:
+        # Fetch messages from the session
+        messages_list = messages.get_messages(request)
         bins = BinsStats.objects.all()  
         qr_code = BINQRs.objects.all()
-        return render(request,"index.html",{'user':request.user.username,'bins':bins,'QR':qr_code})
+        return render(request, "index.html", {'user': request.user.username, 'bins': bins, 'QR': qr_code, 'messages': messages_list})
     else:
+        messages.error(request, "Please Login First")
         return redirect('UserLogin')
 @csrf_exempt
 def UserLogin(request):
@@ -25,28 +27,23 @@ def UserLogin(request):
         password = request.POST.get('password')
         user = AppUser.objects.filter(username=username).first()
         if user is not None:
-                
-            print(user.password)
-            
+            device = request.POST.get('device')
             if user and check_password(password,user.password):
                 login(request, user)
                 messages.add_message(request,1,'Logged ')
-                print (request.user,end="")
-                print (request.user.is_authenticated)
                 messages.success(request,f"Succesfuly logged in  as {user.username}")
-                if request.POST.get('device') is not None:
-                    return HttpResponse('SCCS')
+                if device == "NODE":
+                    return HttpResponse('^\r\n')
                 return redirect(reverse('members'))
         messages.error(request, 'Invalid username or password.')
 
     form = LoginForm()
     return render(request, 'login.html', {'form': form,'user':request.user.username})
-
 def UserLogout(request):
     if request.user.is_authenticated:
-        messages.success(request, f'The user {request.user.username} has succesfuly logged out')
+        # messages.add_message(request, messages.SUCCESS, f'The user {request.user.username} has successfully logged out')
         logout(request)
-        return redirect('members')
+        return redirect('UserLogin')
     return redirect('UserLogin')
 
 # @csrf_exempt
@@ -71,7 +68,6 @@ def creatBin(request):
                 area = form.cleaned_data['Area']
                 city = form.cleaned_data['City']
                 qr_data = form.cleaned_data['qr_data']
-                print(qr_data)
                 qr_data_json = json.loads(qr_data)
                 lat = qr_data_json['Lat']
                 lon = qr_data_json['Lon']
@@ -113,7 +109,7 @@ def creatBin(request):
         
         return render(request, "addBins.html", {'form': Bins(), 'user': request.user.username})
     
-    messages.error(request, 'You need to log in first to access this page')
+    messages.error(request, 'Please Login First')
     return redirect(UserLogin)
 
 @csrf_exempt
@@ -153,4 +149,6 @@ def genQRCODE(request):
         form = QR()
         qrs = BINQRs.objects.all()
         return render(request, 'genQR.html', {'form': form, 'QR': qrs})
+    else:
+        messages.error(request,"Please Login First")
     return redirect('UserLogin')
