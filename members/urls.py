@@ -9,7 +9,8 @@ urlpatterns = [
     path('logoutUser', views.UserLogout, name='UserLogout'),
     path('creatBin', views.creatBin, name='creatBin'),
     path('update', views.update, name='update'),
-    path('QR', views.genQRCODE, name='update'),
+    path('QR', views.genQRCODE, name='QR'),
+    path('connect', views.connect, name='connect'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

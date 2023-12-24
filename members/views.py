@@ -34,7 +34,7 @@ def UserLogin(request):
                 messages.success(request,f"Succesfuly logged in  as {user.username}")
                 if device == "NODE":
                     print("BIN LOGIN DETCETED")
-                    return HttpResponse('SCCS\r\n')
+                    return HttpResponse('SCCS\n')
                 return redirect(reverse('members'))
         messages.error(request, 'Invalid username or password.')
 
@@ -72,8 +72,8 @@ def creatBin(request):
                 qr_data_json = json.loads(qr_data)
                 lat = qr_data_json['Lat']
                 lon = qr_data_json['Lon']
+                global bin_id
                 bin_id = qr_data_json['BinID']
-                    
                 if fill_up >= 70:
                     status = 'HIGH'
                     form.refreshStats = 'Due'
@@ -98,7 +98,6 @@ def creatBin(request):
                     Area=area,
                     City=city,
                 )
-
                 bin_instance.save()
 
                 messages.success(request, 'Bin added successfully!')
@@ -112,6 +111,19 @@ def creatBin(request):
     
     messages.error(request, 'Please Login First')
     return redirect(UserLogin)
+
+@csrf_exempt
+def connect(request):
+    global bin_id
+    try:
+        if bin_id:
+            temp = bin_id
+            bin_id = None
+            return HttpResponse(temp)   
+        else:
+            return HttpResponse("No bin id")
+    except (NameError):
+        return HttpResponse("No bin id")
 
 @csrf_exempt
 def update(request):
@@ -128,7 +140,7 @@ def update(request):
         else:
             bin_instance.status = 'LOW'
             bin_instance.refreshStats = 'Done'
-
+        print(request.POST)
         bin_instance.fillUp = fillUp
         bin_instance.save()
         return HttpResponse('Succes')   
