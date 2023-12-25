@@ -39,5 +39,5 @@ class BINQRs(models.Model):
         draw.text((50, 350), text, font=font, fill=text_color)
         buffer = BytesIO()
         canvas.save(buffer, "PNG")
-        self.image.save(f'image{random.randint(0, 99999)}.png', File(buffer), save=False)
+        self.image.save(f'image{random.randint(1, 9999999)}.png', File(buffer), save=False)
         canvas.close()

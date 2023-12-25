@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,7 +22,7 @@
   <div id="result"></div>
   <script defer>
     fetch('https://httpbin.org/ip')
-    //jsonip.com
+      //jsonip.com
       .then(response => response.json())
       .then(data => {
         fetch(`https://ipapi.co/${data.origin}/json`).then(response => response.json()).then(
@@ -33,37 +32,40 @@
             console.log(data.city);
 
             let city = document.getElementById("id_City");
-            const scanner = new Html5QrcodeScanner('reader', {
-              qrbox: {
-                width: 250,
-                height: 250,
-              },
-              fps: 20,
-            });
-
-            if (city) {
-              city.value = data.city;
-            }
-            scanner.render(success, () => null);
-            function success(result) {
-              console.log("Raw Result:", result); // Log the raw result to check its content
-              document.getElementById('result').innerHTML = result;
-              scanner.clear();
-
-              try {
-                let sanitizedResult = result.replace(/'/g, '"');
-                id_qr_data.value = sanitizedResult;
-              } catch (e) {
-                console.error("Error parsing JSON:", e);
-              }
-              function error(err) {
-                console.error(err);
-              }
-            }
+            console.log(city);
+            city.value = data.city
           }
-        );
-      })
+        )
+      }
+      )
       .catch(error => console.error('Error fetching IP address:', error));
+    setTimeout(() => {
+      const scanner = new Html5QrcodeScanner('reader', {
+        qrbox: {
+          width: 250,
+          height: 250,
+        },
+        fps: 20,
+      });
+
+      scanner.render(success, () => null);
+      function success(result) {
+        console.log("Raw Result:", result); // Log the raw result to check its content
+        document.getElementById('result').innerHTML = result;
+        scanner.clear();
+
+        try {
+          let sanitizedResult = result.replace(/'/g, '"');
+          id_qr_data.value = sanitizedResult;
+        } catch (e) {
+          console.error("Error parsing JSON:", e);
+        }
+      }
+      function error(err) {
+        console.error(err);
+      }
+    },1000)
+
   </script>
 </body>
 

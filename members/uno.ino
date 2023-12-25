@@ -1,5 +1,6 @@
 #include <SoftwareSerial.h>
 #include <NewPing.h>
+#include <EEPROM.h>
 
 const byte rxPin = 10;
 const byte txPin = 11;
@@ -11,6 +12,7 @@ const byte txPin = 11;
 
 #define MAXHEIGHT 200  //Height of the bin
 
+#define BIN_ID_ADDRESS 0
 #define CONNECTPIN 2
 #define LED 13
 NewPing US(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
@@ -19,10 +21,37 @@ NewPing US(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 SoftwareSerial NODE(rxPin, txPin);
 String serverIP = "192.168.157.2";
 String BinID = "#XC16s";
+#define BIN_ID_LENGTH 6
 unsigned long lastTimeMillis = 0;
 bool allowUpdate = true;
 bool loggedIn = false;
 
+String readBinIDFromEEPROM() {
+  // Read Bin ID from EEPROM
+  for (int i = 0; i < 6; ++i) {  // Assuming Bin ID is 6 characters long
+    BinID[i] = EEPROM.read(BIN_ID_ADDRESS + i);
+  }
+  BinID.trim();  // Remove any leading or trailing whitespaces
+  return BinID;
+}
+
+void writeBinIDToEEPROM() {
+  // Write Bin ID to EEPROM
+  for (int i = 0; i < BinID.length(); ++i) {
+    EEPROM.write(BIN_ID_ADDRESS + i, BinID[i]);
+  }
+  EEPROM.write(BIN_ID_ADDRESS + BinID.length(), '\0');  // Null-terminate the string
+}
+
+bool checkEEPROM() {
+  // Check if EEPROM contains valid Bin ID
+  String data = readBinIDFromEEPROM();
+  for(char c : data)
+  {
+    if(!isAlphaNumeric(c));
+  }
+  return true; // EEPROM data is valid
+}
 void setup() {
   pinMode(CONNECTPIN, INPUT_PULLUP);
   pinMode(LED, OUTPUT);
@@ -78,15 +107,18 @@ void printResponse() {
       Serial.println("Login Successful");
       loggedIn = true;
       Serial.println(US.ping_cm());
-    }
-    else if(data.indexOf("BinId") >= 0)
-    {
+    } else if (data.indexOf("BinId") >= 0) {
       Serial.println("Got BinID");
-      Serial.println(data.substring(length-7,length));
+      BinID = data.substring(6, 12);
+      delay(100);
+      if (BinID.length() == BIN_ID_LENGTH) {
+        writeBinIDToEEPROM();
+      } else {
+        Serial.println("Invalid BinID received");
+      }
     }
   }
 }
-
 void update() {
   String httpRequest = "                                        ";
   httpRequest += "POST /update HTTP/1.1\r\n";
@@ -132,6 +164,9 @@ void update() {
 }
 
 void login() {
+  if (checkEEPROM()) {
+    BinID = readBinIDFromEEPROM();
+  }
   String httpRequest = "                                        ";
   httpRequest += "POST /loginUser HTTP/1.1\r\n";
   httpRequest += "Host: " + serverIP + "\r\n";

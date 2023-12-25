@@ -12,10 +12,9 @@
         .qr
         {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-direction:row;
             align-items: center;
-            width: 30dvw;
+            width: 60dvw;
             margin: 0px;
             border: 2px #333 solid;
 
@@ -28,7 +27,9 @@
 
         .QRCodes
         {
-            width: 18dvw;
+            width: 20dvw;
+            position: relative;
+            left: 20dvw;
         }
         @media screen and (max-width:700px) {
             .qr
@@ -39,17 +40,27 @@
                 padding: 20px;
             }
         }
+        p
+        {
+            margin: 10px;
+        }
     </style>
 </head>
 <body>
     {%include "nav.html"%}
     <div class="qrs">
-        {%for qr in QR%}
-        <div class="qr">
-            <a  id="a" href="{{qr.image.url}}" download><img class="QRCodes" src="{{qr.image.url}}"></a>
-            <p class="qr_p">{{qr.data}}</p>
-        </div>
-        {%endfor%}
+        <table>
+            {%for qr in QR%}
+            <tr class="qr">
+                <td>
+                    <p class="qr_p">{{qr.data}}</p>
+                </td>
+                <td>
+                    <a  id="a" href="{{qr.image.url}}" download><img class="QRCodes" src="{{qr.image.url}}"></a>
+                </td>
+            </tr>
+            {%endfor%}
+        </table>
     </div>
     <form method="post">
         {% csrf_token %}

@@ -7,11 +7,13 @@
     .links
     {
         transition: all .2s;
+        color: #a4a4a4;
     }
 
     .links:hover
     {
-        color: white;
+        color: #c4c4c4;
+        font-size: 20px;
     }
 
     .content
@@ -27,7 +29,7 @@
     {
         display: flex;
         justify-content: right;
-        background-color: #5EBBEF;
+        background-color: #242424;
         height: 100px;
         width: 100dvw;
         display: flex;
@@ -52,7 +54,7 @@
         padding:10px;
         display: flex;
         justify-content: center;
-        background-color:#5EBBEF;
+        background-color:#242424;
         color:#FFF;
     }
     @media screen and (max-width: 700px) {
@@ -72,7 +74,7 @@
     <div class="content">
         <a class="name links" href="/">Tidier</a>
         <a href="/logoutUser" class="links">Logout</a>
-        <a href="{% url 'creatBin' %}" class="links">{% url 'creatBin' %}</a>
+        <a href="{% url 'creatBin' %}" class="links">Creat Bin</a>
         <a href="/QR" class="links">Generate QR</a>
         <span id='user' class="links">{{user}}</span>
     </div>

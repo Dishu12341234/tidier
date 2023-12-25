@@ -131,6 +131,8 @@ def update(request):
     if request.method == 'POST':
         BinID = request.POST['BinID']
         fillUp = int(request.POST['fillUp'])
+        fillUp -= 100
+        fillUp = abs(fillUp)
         bin_instance = BinsStats.objects.get(BinID=BinID)
         if fillUp >= 70:
             bin_instance.status = 'HIGH'
