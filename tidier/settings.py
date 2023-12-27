@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'members',
-    'geoip2',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -75,7 +75,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "tidier.wsgi.application"
+# WSGI_APPLICATION = "tidier.wsgi.application"
+ASGI_APPLICATION = "tidier.asgi.application"
 
 
 # Database
@@ -177,3 +178,8 @@ LOGGING = {
     },
 }
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}

@@ -1,0 +1,174 @@
+python3 manage.py makemigrations
+No changes detected
+python3 manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, members, sessions
+Running migrations:
+  No migrations to apply.
+clear
+[H[2J[3Jpython3 manage.py runserver 192.168.1.4:8000
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+December 25, 2023 - 16:55:03
+Django version 4.2.5, using settings 'tidier.settings'
+Starting development server at http://192.168.1.4:8000/
+Quit the server with CONTROL-C.
+
+/Users/divyanshundley/Documents/python/django/tidier/members/views.py changed, reloading.
+/Users/divyanshundley/Documents/python/django/tidier/members/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+December 25, 2023 - 16:55:18
+Django version 4.2.5, using settings 'tidier.settings'
+Starting development server at http://192.168.1.4:8000/
+Quit the server with CONTROL-C.
+
+[25/Dec/2023 16:55:22] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:55:25] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:55:31] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:56:12] "GET / HTTP/1.1" 200 7935
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+[25/Dec/2023 16:56:13] "GET /favicon.ico HTTP/1.1" 404 3467
+[25/Dec/2023 16:56:16] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:56:18] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:56:22] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:56:26] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:56:35] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:56:38] "GET /logoutUser HTTP/1.1" 302 0
+[25/Dec/2023 16:56:38] "GET /loginUser HTTP/1.1" 200 2695
+<QueryDict: {'csrfmiddlewaretoken': ['Gq13NjttkCO9Qy44rmaNjHPUiJoPyGNC1E4p7DoHYeQvtaukXKN0biX8Tjriefi3'], 'username': ['divyanshundley'], 'password': ['divyansh']}>
+[25/Dec/2023 16:56:41] "POST /loginUser HTTP/1.1" 302 0
+[25/Dec/2023 16:56:41] "GET / HTTP/1.1" 200 8250
+[25/Dec/2023 16:56:46] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:57:10] "GET / HTTP/1.1" 200 7935
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+[25/Dec/2023 16:57:11] "GET /favicon.ico HTTP/1.1" 404 3512
+[25/Dec/2023 16:57:16] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:57:18] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:57:56,154] - Broken pipe from ('192.168.1.4', 65283)
+[25/Dec/2023 16:57:58] "GET / HTTP/1.1" 302 0
+[25/Dec/2023 16:57:58] "GET /loginUser HTTP/1.1" 200 2786
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+[25/Dec/2023 16:57:58] "GET /favicon.ico HTTP/1.1" 404 3468
+[25/Dec/2023 16:58:48] "GET / HTTP/1.1" 200 7934
+[25/Dec/2023 16:58:49] "GET / HTTP/1.1" 200 7934
+[25/Dec/2023 16:58:51] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:58:52] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 16:59:12] "GET / HTTP/1.1" 200 7937
+[25/Dec/2023 16:59:13] "GET / HTTP/1.1" 200 7937
+[25/Dec/2023 16:59:29] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 16:59:41] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:01:48] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:01:51] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:02:20] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:02:22] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:02:26] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:03:07] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 17:03:08] "GET / HTTP/1.1" 200 7935
+[25/Dec/2023 17:03:41] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:03:44] "GET / HTTP/1.1" 200 7940
+[25/Dec/2023 17:03:49] "GET / HTTP/1.1" 200 7938
+[25/Dec/2023 17:03:52] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:03:52] "GET / HTTP/1.1" 200 7936
+[25/Dec/2023 17:05:05] "GET / HTTP/1.1" 200 8029
+[25/Dec/2023 17:05:05] "GET / HTTP/1.1" 200 8029
+[25/Dec/2023 17:05:07] "GET / HTTP/1.1" 200 8029
+[25/Dec/2023 17:05:09] "GET / HTTP/1.1" 200 8029
+[25/Dec/2023 17:07:24] "GET / HTTP/1.1" 200 8029
+[25/Dec/2023 17:07:26] "GET / HTTP/1.1" 200 8029
+[25/Dec/2023 17:07:51] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:07:53] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:07:55] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:07] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:16] "GET / HTTP/1.1" 200 8062
+[25/Dec/2023 17:08:19] "GET / HTTP/1.1" 200 8062
+[25/Dec/2023 17:08:27] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:28] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:30] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:32] "GET / HTTP/1.1" 200 8060
+[25/Dec/2023 17:08:36] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:41] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:48] "GET / HTTP/1.1" 200 8016
+[25/Dec/2023 17:08:49] "GET / HTTP/1.1" 200 8016
+[25/Dec/2023 17:08:49] "GET / HTTP/1.1" 200 8016
+[25/Dec/2023 17:08:49] "GET / HTTP/1.1" 200 8016
+[25/Dec/2023 17:08:50] "GET / HTTP/1.1" 200 8016
+[25/Dec/2023 17:08:50] "GET / HTTP/1.1" 200 8016
+[25/Dec/2023 17:08:50] "GET / HTTP/1.1" 200 8016
+[25/Dec/2023 17:08:55] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:57] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:08:58] "GET / HTTP/1.1" 200 8062
+[25/Dec/2023 17:09:03] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:09:07] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:09:09] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:09:12] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:09:13] "GET / HTTP/1.1" 200 8060
+[25/Dec/2023 17:09:14] "GET / HTTP/1.1" 200 8060
+[25/Dec/2023 17:09:16] "GET / HTTP/1.1" 200 8060
+[25/Dec/2023 17:09:20] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:09:21] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:09:23] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:09:35] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:09:35] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:10:04] "GET / HTTP/1.1" 200 8774
+[25/Dec/2023 17:10:06] "GET / HTTP/1.1" 200 8774
+[25/Dec/2023 17:10:09] "GET / HTTP/1.1" 200 8774
+[25/Dec/2023 17:10:17] "GET / HTTP/1.1" 200 8774
+[25/Dec/2023 17:10:19] "GET / HTTP/1.1" 200 8774
+[25/Dec/2023 17:10:21] "GET / HTTP/1.1" 200 8774
+[25/Dec/2023 17:10:28] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:10:28] "GET / HTTP/1.1" 200 8061
+[25/Dec/2023 17:10:45] "GET / HTTP/1.1" 200 8110
+[25/Dec/2023 17:10:46] "GET / HTTP/1.1" 200 8110
+[25/Dec/2023 17:10:51] "GET / HTTP/1.1" 200 8102
+[25/Dec/2023 17:10:52] "GET / HTTP/1.1" 200 8102
+[25/Dec/2023 17:10:53] "GET / HTTP/1.1" 200 8102
+[25/Dec/2023 17:11:19] "GET / HTTP/1.1" 200 8167
+[25/Dec/2023 17:11:21] "GET / HTTP/1.1" 200 8167
+[25/Dec/2023 17:11:26] "GET / HTTP/1.1" 200 8167
+[25/Dec/2023 17:11:29] "GET / HTTP/1.1" 200 8167
+[25/Dec/2023 17:11:31] "GET / HTTP/1.1" 200 8167
+[25/Dec/2023 17:11:33] "GET / HTTP/1.1" 200 8167
+[25/Dec/2023 17:12:51] "GET / HTTP/1.1" 200 8284
+[25/Dec/2023 17:13:01] "GET / HTTP/1.1" 200 8228
+[25/Dec/2023 17:13:01] "GET / HTTP/1.1" 200 8228
+[25/Dec/2023 17:13:07] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:13:10] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:13:12] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:13:14] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:13:29] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:16:44] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:16:47] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:16:51] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:17:22] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:17:52] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:17:55] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:18:02] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:18:04] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:18:07] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:18:20] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:18:22] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:18:25] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:12] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:14] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:16] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:18] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:29] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:30] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:32] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:37] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:45] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:46] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:47] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:48] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:19:49] "GET / HTTP/1.1" 200 8273
+[25/Dec/2023 17:42:23] "GET / HTTP/1.1" 200 8273

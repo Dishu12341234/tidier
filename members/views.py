@@ -13,7 +13,7 @@ def members(request):
     if request.user.is_authenticated:
         # Fetch messages from the session
         messages_list = messages.get_messages(request)
-        bins = BinsStats.objects.all()  
+        bins = BinsStats.objects.all().order_by('-fillUp')  
         qr_code = BINQRs.objects.all()
         return render(request, "index.html", {'user': request.user.username, 'bins': bins, 'QR': qr_code, 'messages': messages_list})
     else:
@@ -128,27 +128,30 @@ def connect(request):
 
 @csrf_exempt
 def update(request):
-    if request.method == 'POST':
-        BinID = request.POST['BinID']
-        fillUp = int(request.POST['fillUp'])
-        fillUp -= 100
-        fillUp = abs(fillUp)
-        bin_instance = BinsStats.objects.get(BinID=BinID)
-        if fillUp >= 70:
-            bin_instance.status = 'HIGH'
-            bin_instance.refreshStats = 'Due'
-        elif fillUp >= 40:
-            bin_instance.status = 'MID'
-            bin_instance.refreshStats = 'Due'
-        else:
-            bin_instance.status = 'LOW'
-            bin_instance.refreshStats = 'Done'
-        print(request.POST)
-        bin_instance.fillUp = fillUp
-        bin_instance.save()
-        return HttpResponse('Succes')   
+    try:
+        if request.method == 'POST':
+            BinID = request.POST['BinID']
+            fillUp = int(request.POST['fillUp'])
+            fillUp -= 100
+            fillUp = abs(fillUp)
+            bin_instance = BinsStats.objects.get(BinID=BinID)
+            if fillUp >= 70:
+                bin_instance.status = 'HIGH'
+                bin_instance.refreshStats = 'Due'
+            elif fillUp >= 40:
+                bin_instance.status = 'MID'
+                bin_instance.refreshStats = 'Due'
+            else:
+                bin_instance.status = 'LOW'
+                bin_instance.refreshStats = 'Done'
+            print(request.POST)
+            bin_instance.fillUp = fillUp
+            bin_instance.save()
+            return HttpResponse('Succes')   
 
-    return redirect('members')
+        return redirect('members')
+    except(BinsStats.DoesNotExist):
+        return HttpResponse('No Bin\n');
 def genQRCODE(request):
     if request.user.is_authenticated:
         if request.method == 'POST':

@@ -7,16 +7,88 @@
     <title>Tidier</title>
 
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        #content
+        *
         {
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+        
+        .links
+        {
+            transition: all .2s;
+            color: #fff;
+        }
+        
+        .links:hover
+    {
+        color: #c4c4c4;
+        font-size: 20px;
+    }
+
+    .content
+    {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+        color: #333;
+    }
+    
+    
+    .nav
+    {
+        display: flex;
+        justify-content: center;
+        background-color: #242424;
+        height: 100px;
+        width: 100dvw;
+        align-items: center;
+    }
+    .name
+    {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin-left: 15px;
+        
+    }
+    a
+    {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin: 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    th {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    .messages
+    {
+        margin:0px;
+        padding:10px;
+        display: flex;
+        justify-content: center;
+        background-color:#242424;
+        color:#FFF;
+    }
+    @media screen and (max-width: 700px) {
+        
+        #user
+        {
+        display: none;       
+        }
+        .nav
+        {
+            justify-content: center;
+        }
+    }
+
+        #content {
             background-color: #242424;
             width: 70dvw;
             display: flex;
@@ -29,60 +101,135 @@
             justify-content: center;
             transition: all 1s;
         }
-        
-        td
-        {
-            color: #444444;
+
+        td {
+            color: #a4a4a4;
             padding: 10px;
+            font-weight: bolder;
             transition: all .3s;
         }
-        td:hover
-        {
-            color: #a4a4a4;
+
+        td:hover {
+            color: #fff;
+            font-weight: bolder;
         }
-        th
-        {
-            color: #747474;
+
+        th {
+            color: #fff;
         }
-        
-        #logo
-        {
+
+        #logo {
             margin-top: 10px;
             font-size: 100px;
         }
-        #query
-        {
+
+        #query {
             color: #a4a4a4;
-            text-shadow: currentColor 1px 0px 5px;
-            font-size: 20px;
+            text-shadow: currentColor 1px 1px 10px;
             transition: all .3s;
+            font-weight: bolder;
+            text-decoration: none;
         }
-        #query:hover
-        {
+
+        #query:hover {
             color: white;
         }
 
         @media screen and (max-width: 1180px) {
-            #content
-            {
+            #content {
                 width: 90dvw;
                 left: 5dvw;
                 justify-content: center;
             }
-            td
-            {
+
+            td {
                 padding: 5px;
             }
-            #query
-            {
+
+            #query {
                 font-size: 15px;
             }
+        }
+
+        #stats {
+            display: flex;
+        }
+
+        .bar {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 20px;
+            width: max-content;
+            height: max-content;
+            padding: 10px;
+            transition: all 1s;
+            border: none;
+            background-color: transparent;
+        }
+
+        #s1 {
+            left: 10px;
+        }
+
+        .outer {
+            width: 162px;
+            cursor: crosshair;
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            padding: 20px;
+            box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15), -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+            text-align: center;
+            transition: all .3s;
+        }
+
+        .inner {
+            border-radius: 50%;
+            display: flex;
+            height: 120px;
+            width: 120px;
+            box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2), inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7), -0.5px -0.5px 0px rgba(255, 255, 255, 1), 0.5px 0.5px 0px rgba(0, 0, 0, 0.15), .0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        svg {
+            fill: none;
+            stroke: url(#GradientColor);
+            stroke-width: 20px;
+            stroke-dasharray: 472;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .data {
+            font-weight: 200;
+            color: #333;
+        }
+
+        .svg {
+            stroke-dashoffset:472;
+            transition: 1s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .bar:hover .outer
+        {
+            background-color: #a4a4a4;
+        }
+        
+        .inner
+        {
+            background-color: #fff;
         }
     </style>
 </head>
 
 <body>
-    
+
     {% include "nav.html" %}
 
     {% if messages %}
@@ -91,18 +238,36 @@
         <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
             {% endfor %}
     </ul>
-    
+
     <script>
         let messages = document.querySelector(".messages");
         setTimeout(() => {
             messages.style.display = "none";
         }, 2000);
-        </script>
+    </script>
     {% endif %}
     <h1 id="logo">Tidier</h1>
-    
+    <div id="stats">
+        <button id="s1" class="bar">
+        <div class="outer">
+                <div class="inner">
+                    <div class="data"></div>
+                </div>
+            </div>
+            <svg class="svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                <defs>
+                    <linearGradient id="GradientColor">
+                        <stop offset="0%" stop-color="#673ab7" />
+                        <stop offset="1000%" stop-color="#e91e63" />
+                    </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+            </svg>
+        </button>
+    </div>
+
     <section id="content">
-    
+
         <table class="workTab">
             <tr id="ths">
                 <th>Bin ID</th>
@@ -117,22 +282,45 @@
             </tr>
             {% for bin in bins %}
             <tr>
-                <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.BinID }}</td>
+                <td class="BinID">{{ bin.BinID }}</td>
                     <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.lastRefresh }}</td>
-                        <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.fillUp }}</td>
-                            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.status }}</td>
-                                <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.refreshStats }}</td>
-                                    <td class="Area"><a target="_blank" id="query"
-                                            href="https://www.google.com/search?q={{bin.Area}},+{{bin.City}}">{{bin.Area}}</a>
-                                    </td>
-                                    <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.City }}</td>
-                                        <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.Lon }}</td>
-                                            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.Lat }}</td>
+                        <td class="fillUp">{{ bin.fillUp }}%</td>
+                        <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.status }}</td>
+                            <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.refreshStats }}</td>
+                                <td class="Area"><a target="_blank" id="query"
+                                        href="https://www.google.com/search?q={{bin.Area}},+{{bin.City}}">{{bin.Area}}</a>
+                                </td>
+                                <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.City }}</td>
+                                    <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.Lon }}</td>
+                                        <td{% if bin.tags %} class="{{ bin.tags }}" {% endif %}>{{ bin.Lat }}</td>
             </tr>
             {% endfor %}
         </table>
     </section>
-    
+
 </body>
+<script>
+    let fillUps = document.getElementsByClassName("fillUp");
+    let bars = document.getElementsByClassName("bar");
+    let BinIDs = document.getElementsByClassName("BinID")
+    let datas = document.getElementsByClassName("data");
+    let bar1 = document.getElementById("s1")
+    let stats = document.getElementById("stats")
+    for (let i = 0; i < fillUps.length-1; i++) {
+        let newBar = bars[i].cloneNode(true);
+        stats.appendChild(newBar);
+    }
+    for (let i = 0; i < fillUps.length; i++) {
+        let perc = parseInt(fillUps[i].innerHTML)
+        let value = fillUps[i].innerHTML;
+        let finalVal = 472 - (perc / 100) * 472
+        datas[i].innerHTML += `${BinIDs[i].innerHTML}<br>${fillUps[i].innerHTML}`
+        setInterval(() => {
+            bars[i].children[1].style.strokeDashoffset = finalVal;
+        }, 150)
+        console.log(bars[i]);
+    }
+
+</script>
 
 </html>
