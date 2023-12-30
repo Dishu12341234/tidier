@@ -7,54 +7,55 @@ from channels.generic.websocket import WebsocketConsumer
 from .models import BinsStats as Bin
 
 
-class ChatConsumer(WebsocketConsumer):
-
+class BinConsumer(WebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(args, kwargs)
-        self.BindID = None
-        self.BindIDGroup = None
+        self.Bin = None
+        self.BinGroup = None
 
     def connect(self):
         print("WebSocket connection established")
-        
-        self.BindID = self.scope
-        print("BindID:", self.BindID)
-        self.BindID = "A"
-        print("BindID:", self.BindID)
 
-        self.BindIDGroup = f'Group_{self.BindID}'
-        print("BindIDGroup:", self.BindIDGroup)
+        self.Bin = "Bin"
+        print("Bin:", self.Bin)
 
-        # connection has to be accepted 
+        self.BinGroup = f"Group_{self.Bin}"
+        print("BinGroup:", self.BinGroup)
+        print(self.scope)
+
+        # connection has to be accepted
         self.accept()
 
         # join the room group
         async_to_sync(self.channel_layer.group_add)(
-            self.BindIDGroup,
+            self.BinGroup,
             self.channel_name,
         )
 
     def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(
-            self.BindIDGroup,
+            self.BinGroup,
             self.channel_name,
         )
 
     def receive(self, text_data=None, bytes_data=None):
-
         # send chat message event to the room
+        print("Text data", end="\n\n\n\n\n\n\n\n\n\n\n")
         async_to_sync(self.channel_layer.group_send)(
-            self.BindIDGroup,
+            self.BinGroup,
             {
-                'type': 'BinReload',
-                'Area': f"{text_data}",
-            }
+                "type": f"{text_data}",#If the text_data is BinRelaod then call the function with the same type
+            },
         )
+
     def BinReload(self, event):
         bins_data = list(Bin.objects.values())
-        bins_serializable = json.dumps({
-            'type': 'BinReload',
-            'bins': bins_data,
-        }, cls=DjangoJSONEncoder)
+        bins_serializable = json.dumps(
+            {
+                "type": "BinReload",#This is the function with the type BinReload so if the recived text_data in the recive function is BinReload then this function would be called
+                "bins": bins_data,
+            },
+            cls=DjangoJSONEncoder,
+        )
 
         self.send(text_data=bins_serializable)

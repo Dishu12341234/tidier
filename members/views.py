@@ -122,9 +122,9 @@ def connect(request):
             bin_id = None
             return HttpResponse(temp)   
         else:
-            return HttpResponse("No bin id\n")
+            return HttpResponse("NBNID\n")
     except (NameError):
-        return HttpResponse("No bin id\n")
+        return HttpResponse("NBNID\n")
 
 @csrf_exempt
 def update(request):
@@ -147,11 +147,13 @@ def update(request):
             print(request.POST)
             bin_instance.fillUp = fillUp
             bin_instance.save()
-            return HttpResponse('Succes')   
+            return HttpResponse('SUCCS')   
 
         return redirect('members')
     except(BinsStats.DoesNotExist):
-        return HttpResponse('No Bin\n');
+        return HttpResponse('NOBIN\n');
+    except(ValueError):
+        return HttpResponse('NOBIN\n')
 def genQRCODE(request):
     if request.user.is_authenticated:
         if request.method == 'POST':

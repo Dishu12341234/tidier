@@ -194,7 +194,7 @@
             fill: none;
             stroke: url(#GradientColor);
             stroke-width: 20px;
-            stroke-dasharray: 472;
+            stroke-dasharray: 430;
             position: absolute;
             top: 10px;
             left: 10px;
@@ -206,7 +206,7 @@
         }
 
         .svg {
-            stroke-dashoffset: 472;
+            stroke-dashoffset: 430;
             transition: 1s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -302,11 +302,15 @@
         let newBar = bars[i].cloneNode(true);
         stats.appendChild(newBar);
     }
+    if(fillUps.length == 0)
+    {
+        stats.style.display = "none"
+    }
     function bar() {
         for (let i = 0; i < fillUps.length; i++) {
             let perc = parseInt(fillUps[i].innerHTML)
             let value = fillUps[i].innerHTML;
-            let finalVal = 472 - (perc / 100) * 472
+            let finalVal = 430 - (perc / 100) * 430
             datas[i].innerHTML = `${BinIDs[i].innerHTML}<br>${fillUps[i].innerHTML}`
             bars[i].children[1].style.strokeDashoffset = finalVal;
         }
@@ -314,13 +318,13 @@
     bar(true)
 
     function connect() {
-        let chatSocket = new WebSocket("ws://" + window.location.host + "/ws/bin/");
+        let chatSocket = new WebSocket((document.location.protocol === "https:" ? "wss://" : "ws://") + window.location.host + "/ws/bin/");
 
         chatSocket.onopen = function (e) {
             console.log("Successfully connected to the WebSocket.");
             setInterval(() => {
-                chatSocket.send("reload");
-            }, 10000)
+                chatSocket.send("BinReload");//This is the self.text_data
+            }, 1000)
         };
 
         chatSocket.onclose = function (e) {
@@ -346,7 +350,6 @@
 
                 let newStatus = Bins[binIndex].status
                 let status = bin.parentElement.children[3]
-                console.log(status);
                 status.innerText = newStatus
 
                 bar()
