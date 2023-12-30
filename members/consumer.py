@@ -4,24 +4,23 @@ from django.core.serializers.json import DjangoJSONEncoder
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 
-from .models import BinsStats as Bin
+from .models import BinsStats as time
 
-
+#Single class for a singlw task
 class BinConsumer(WebsocketConsumer):
     def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
-        self.Bin = None
+        super().__init__(*args, **kwargs)
+        self.time = None
         self.BinGroup = None
 
     def connect(self):
         print("WebSocket connection established")
 
-        self.Bin = "Bin"
-        print("Bin:", self.Bin)
+        self.time = self.scope["url_route"]["kwargs"]["time"]
+        print("time:", self.time)
 
-        self.BinGroup = f"Group_{self.Bin}"
+        self.BinGroup = f"Group_{self.time}"
         print("BinGroup:", self.BinGroup)
-        print(self.scope)
 
         # connection has to be accepted
         self.accept()
@@ -40,19 +39,20 @@ class BinConsumer(WebsocketConsumer):
 
     def receive(self, text_data=None, bytes_data=None):
         # send chat message event to the room
-        print("Text data", end="\n\n\n\n\n\n\n\n\n\n\n")
+        print("Text data", end="\n")
+        data = json.loads(text_data)
         async_to_sync(self.channel_layer.group_send)(
             self.BinGroup,
             {
-                "type": f"{text_data}",#If the text_data is BinRelaod then call the function with the same type
+                "type": f"{data['type']}",
             },
         )
 
     def BinReload(self, event):
-        bins_data = list(Bin.objects.values())
+        bins_data = list(time.objects.values())
         bins_serializable = json.dumps(
             {
-                "type": "BinReload",#This is the function with the type BinReload so if the recived text_data in the recive function is BinReload then this function would be called
+                "type": event["type"],
                 "bins": bins_data,
             },
             cls=DjangoJSONEncoder,

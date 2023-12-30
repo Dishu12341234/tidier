@@ -1,49 +1,15 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate QRCode</title>
+    <link rel="stylesheet" href="{% static "css/genQR.css" %}">
+    <script src="{% static "js/genQR.js" %}" defer></script>
     <style>
-        #a
-        {
-            margin-left: 0px;
-        }
-        .qr
-        {
-            display: flex;
-            flex-direction:row;
-            align-items: center;
-            width: 60dvw;
-            margin: 0px;
-            border: 2px #333 solid;
-
-        }
-        .qrs
-        {
-            display: flex;
-            flex-wrap:wrap;
-        }
-
-        .QRCodes
-        {
-            width: 20dvw;
-            position: relative;
-            left: 20dvw;
-        }
-        @media screen and (max-width:700px) {
-            .qr
-            {
-                position: relative;
-                width: 70dvw;
-                margin-bottom: 10px;
-                padding: 20px;
-            }
-        }
-        p
-        {
-            margin: 10px;
-        }
+        
     </style>
 </head>
 <body>
@@ -68,38 +34,4 @@
         <input type="submit" value="GENERATE">
     </form>
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    let QRPs = document.getElementsByClassName('qr_p');
-
-    for (let index = 0; index < QRPs.length; index++) {
-        const element = QRPs[index];
-        let data;
-
-        try {
-            // Try parsing the content as JSON
-            data = JSON.parse(element.innerText);
-
-            // Create new elements for latitude, longitude, and BinID
-            let latP = document.createElement("p");
-            latP.innerText = `Latitude: ${data['Lat']}`;
-
-            let lonP = document.createElement("p");
-            lonP.innerText = `Longitude: ${data['Lon']}`;
-
-            let BinP = document.createElement("p");
-            BinP.innerText = `BinID: ${data['BinID']}`;
-
-            // Replace the original content with the new elements
-            element.innerHTML = '';  // Clear the original content
-            element.appendChild(BinP);
-            element.appendChild(latP);
-            element.appendChild(lonP);
-        } catch (error) {
-            console.error('Error parsing JSON:', error);
-            // Handle the error, e.g., by displaying a message to the user
-        }
-    }
-});
-</script>
 </html>
