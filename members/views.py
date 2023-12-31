@@ -13,7 +13,7 @@ def members(request):
     if request.user.is_authenticated:
         # Fetch messages from the session
         messages_list = messages.get_messages(request)
-        bins = BinsStats.objects.all().order_by('-fillUp')  
+        bins = BinsStats.objects.all()
         qr_code = BINQRs.objects.all()
         return render(request, "index.html", {'user': request.user.username, 'bins': bins, 'QR': qr_code, 'messages': messages_list})
     else:
