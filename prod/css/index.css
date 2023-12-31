@@ -1,0 +1,222 @@
+/* Global Styles */
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Links */
+.links {
+    transition: all 0.2s;
+    color: #fff;
+}
+
+.links:hover {
+    color: #c4c4c4;
+    font-size: 20px;
+}
+
+/* Content */
+.content {
+    margin: 0 10px;
+}
+
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navigation */
+.nav {
+    display: flex;
+    justify-content: center;
+    background-color: #242424;
+    height: 100px;
+    width: 100%;
+    align-items: center;
+}
+
+.name {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-left: 15px;
+}
+
+a {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+/* Table Styles */
+th,
+td {
+    margin: 0 10px;
+}
+
+td {
+    color: #a4a4a4;
+    padding: 10px;
+    font-weight: bolder;
+    transition: all 0.3s;
+}
+
+td:hover {
+    color: #fff;
+}
+
+th {
+    color: #fff;
+}
+
+/* Messages */
+.messages {
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: #242424;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 700px) {
+    #user {
+        display: none;
+    }
+
+    .nav {
+        justify-content: center;
+    }
+}
+
+/* Content Section */
+#content {
+    background-color: #242424;
+    width: 70vw;
+    display: flex;
+    position: fixed;
+    left: 15vw;
+    bottom: 0;
+    padding-bottom: 10vh;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    justify-content: center;
+    transition: all 1s;
+}
+
+/* Google Search Link */
+#query {
+    color: #a4a4a4;
+    text-shadow: currentColor 1px 1px 10px;
+    transition: all 0.3s;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+#query:hover {
+    color: white;
+}
+
+/* Responsive Design Adjustments */
+@media screen and (max-width: 1180px) {
+    #content {
+        width: 90vw;
+        left: 5vw;
+        justify-content: center;
+    }
+
+    td {
+        padding: 5px;
+    }
+
+    #query {
+        font-size: 15px;
+    }
+}
+
+/* Stats Section */
+#stats {
+    display: flex;
+}
+
+/* Bar Styles */
+.bar {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 20px;
+    width: max-content;
+    height: max-content;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    transform: translateZ(0);
+}
+
+#s1 {
+    left: 10px;
+}
+
+/* Outer Circle Styles */
+.outer {
+    width: 162px;
+    cursor: crosshair;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    padding: 20px;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15), -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+    text-align: center;
+    transition: all 0.3s;
+}
+
+/* Inner Circle Styles */
+.inner {
+    border-radius: 50%;
+    display: flex;
+    height: 120px;
+    width: 120px;
+    box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2), inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7), -0.5px -0.5px 0px rgba(255, 255, 255, 1), 0.5px 0.5px 0px rgba(0, 0, 0, 0.15), .0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+    align-items: center;
+    justify-content: center;
+}
+
+/* SVG Styles */
+svg {
+    fill: none;
+    stroke: url(#GradientColor);
+    stroke-width: 20px;
+    stroke-dasharray: 430;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* Data Styles */
+.data {
+    font-weight: 200;
+    color: #333;
+}
+
+/* SVG Animation Styles */
+.svg {
+    stroke-dashoffset: 430; 
+}
+
+/* Hover Effect on Outer Circle */
+.bar:hover .outer {
+    background-color: #a4a4a4;
+}
+
+/* Inner Circle Background Color */
+.inner {
+    background-color: #fff;
+}
+
+.svg-transition {
+    transition: stroke-dashoffset 1s;
+}

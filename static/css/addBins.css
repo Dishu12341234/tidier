@@ -1,0 +1,17 @@
+form
+      {
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+      }
+      input
+      {
+        border-radius: 10px;
+        border: 1px #333 solid;
+        padding: 5px;
+      }
+      label
+      {
+        position: absolute;
+        transition: all .3s;
+      }

@@ -1,0 +1,37 @@
+#a {
+    margin-left: 0px;
+}
+
+.qr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 60dvw;
+    margin: 0px;
+    border: 2px #333 solid;
+
+}
+
+.qrs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.QRCodes {
+    width: 20dvw;
+    position: relative;
+    left: 20dvw;
+}
+
+@media screen and (max-width:700px) {
+    .qr {
+        position: relative;
+        width: 70dvw;
+        margin-bottom: 10px;
+        padding: 20px;
+    }
+}
+
+p {
+    margin: 10px;
+}
