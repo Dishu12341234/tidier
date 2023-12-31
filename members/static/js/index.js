@@ -35,7 +35,8 @@ function updateBars() {
         const perc = parseInt(fillUps[i].innerHTML);
         const finalVal = 430 - (perc / 100) * 430;
         const svg = bars[i].children[1];
-        svg.style.strokeDashoffset = finalVal;
+        svg.style.transition = 'all 1s'
+        setTimeout(()=>svg.style.strokeDashoffset = finalVal)//Some amount of delay is required
     }
 }
 

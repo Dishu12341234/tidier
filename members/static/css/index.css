@@ -216,3 +216,7 @@ svg {
 .inner {
     background-color: #fff;
 }
+
+.svg-transition {
+    transition: stroke-dashoffset 1s;
+}
