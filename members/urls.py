@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 urlpatterns = [
     path("", views.members, name="members"),
@@ -11,6 +13,10 @@ urlpatterns = [
     path("update", views.update, name="update"),
     path("QR", views.genQRCODE, name="QR"),
     path("connect", views.connect, name="connect"),
+    path(
+        "favicon.ico",
+        RedirectView.as_view(url=staticfiles_storage.url("favicon.png")),
+    ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
