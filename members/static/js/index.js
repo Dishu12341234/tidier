@@ -24,7 +24,7 @@ function updateFillDataBar() {
             if (currentFillUpValue >= finalValue) {
                 clearInterval(fillInterval)
             }
-        }, (1 / finalValue) * 500)
+        }, (1 / finalValue) * 1000)
     }
 }
 
@@ -35,7 +35,7 @@ function updateBars() {
         const perc = parseInt(fillUps[i].innerHTML);
         const finalVal = 430 - (perc / 100) * 430;
         const svg = bars[i].children[1];
-        svg.style.transition = 'all 1s'
+        svg.style.transition = 'all 1.5s'
         setTimeout(()=>svg.style.strokeDashoffset = finalVal)//Some amount of delay is required
     }
 }
