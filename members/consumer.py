@@ -49,7 +49,7 @@ class BinConsumer(WebsocketConsumer):
         )
 
     def BinReload(self, event):
-        bins_data = list(time.objects.values())
+        bins_data = list(time.objects.values().order_by('-fillUp'))
         bins_serializable = json.dumps(
             {
                 "type": event["type"],

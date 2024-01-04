@@ -13,7 +13,7 @@ def members(request):
     if request.user.is_authenticated:
         # Fetch messages from the session
         messages_list = messages.get_messages(request)
-        bins = BinsStats.objects.all()
+        bins = BinsStats.objects.all().order_by('-fillUp')
         qr_code = BINQRs.objects.all()
         return render(request, "index.html", {'user': request.user.username, 'bins': bins, 'QR': qr_code, 'messages': messages_list})
     else:
@@ -118,8 +118,8 @@ def connect(request):
     global bin_id
     try:
         if bin_id:
-            temp = "BinId:"+bin_id
-            bin_id = None
+            temp = "BinId:"+bin_id+"\n"
+            # bin_id = None
             return HttpResponse(temp)   
         else:
             return HttpResponse("NBNID\n")
@@ -130,11 +130,25 @@ def connect(request):
 def update(request):
     try:
         if request.method == 'POST':
-            BinID = request.POST['BinID']
-            fillUp = int(request.POST['fillUp'])
+            print(request.POST)
+            try:
+                BinID = request.POST['BinID'].rstrip('\x00')  # Remove null characters
+                fillUp = int(request.POST['fillUp'])
+            except:
+                return HttpResponse('ERROR\n')
+            
+            print(fillUp)
+            print()
+            print()
+            print()
             fillUp -= 100
             fillUp = abs(fillUp)
-            bin_instance = BinsStats.objects.get(BinID=BinID)
+
+            try:
+                bin_instance = BinsStats.objects.get(BinID=BinID)
+            except BinsStats.DoesNotExist:
+                return HttpResponse('NOBIN\n')
+            
             if fillUp >= 70:
                 bin_instance.status = 'HIGH'
                 bin_instance.refreshStats = 'Due'
@@ -144,16 +158,16 @@ def update(request):
             else:
                 bin_instance.status = 'LOW'
                 bin_instance.refreshStats = 'Done'
+            
             print(request.POST)
             bin_instance.fillUp = fillUp
             bin_instance.save()
-            return HttpResponse('SUCCS')   
+            return HttpResponse('SUCCS\n')
 
         return redirect('members')
-    except(BinsStats.DoesNotExist):
-        return HttpResponse('NOBIN\n');
-    except(ValueError):
+    except ValueError:
         return HttpResponse('NOBIN\n')
+
 def genQRCODE(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
