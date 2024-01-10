@@ -167,7 +167,7 @@ def update(request):
         return redirect('members')
     except ValueError:
         return HttpResponse('NOBIN\n')
-
+     
 def genQRCODE(request):
     if request.user.is_authenticated:
         if request.method == 'POST':

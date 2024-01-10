@@ -152,25 +152,7 @@ CSRF_COOKIE_SECURE = False
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = "media/"
-DEBUG = True    
-# SECURE_SSL_REDIRECT = False
-
-# CORS_REPLACE_HTTPS_REFERER = False
-# HOST_SCHEME = "http://"
-# SECURE_PROXY_SSL_HEADER = None
-# SECURE_SSL_REDIRECT = False
-# SESSION_COOKIE_SECURE = False
-# CSRF_COOKIE_SECURE = False
-# SECURE_HSTS_SECONDS = None
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
-# SECURE_FRAME_DENY = False
-
-# USE_X_FORWARDED_HOST = True
-# USE_X_FORWARDED_PORT = True
-# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-# SECURE_SSL_REDIRECT = False
-
+DEBUG = False
 
 LOGGING = {
     "version": 1,
@@ -207,3 +189,9 @@ TEMPLATES = [
     },
 ]
 
+# settings.py
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://8c49-2409-40c4-5f-eedb-5920-12e5-baa5-1b93.ngrok-free.app",
+    # Add any other trusted origins as needed
+]

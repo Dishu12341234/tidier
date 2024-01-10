@@ -19,19 +19,23 @@ if (fillUps.length === 0) {
 }
 
 function updateFillDataBar() {
-    for (let i = 0; i < fillUps.length; i++) {
-        let finalValue = parseInt(fillUps[i].innerHTML)
-        let currentFillUpValue = 1;
-        let fillInterval = setInterval(() => {
-            currentFillUpValue += 1;
-            datas[i].innerHTML = `${BinIDs[i].innerText}<br>${currentFillUpValue}%`
-            if (currentFillUpValue >= finalValue) {
-                clearInterval(fillInterval)
-            }
-        }, (1 / finalValue) * 1500)
+    for(let i = 0; i < fillUps.length; i++)
+    {
+        console.log(i);
     }
 }
 
+// for (let i = 0; i < fillUps.length; i++) {
+//     let finalValue = parseInt(fillUps[i].innerHTML)
+//     let currentFillUpValue = 1;
+//     let fillInterval = setInterval(() => {
+//         currentFillUpValue += 1;
+//         datas[i].innerHTML = `${BinIDs[i].innerText}<br>${currentFillUpValue}%`
+//         if (currentFillUpValue >= finalValue) {
+//             clearInterval(fillInterval)
+//         }
+//     }, (1 / finalValue) * 1500)
+// }
 
 let currentFillUpValue = 1;
 function updateBars() {
